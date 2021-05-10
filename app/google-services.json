@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1002962534825",
+    "project_id": "chatapp-ef168",
+    "storage_bucket": "chatapp-ef168.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002962534825:android:552e7962de12287ecc04b8",
+        "android_client_info": {
+          "package_name": "com.kk.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002962534825-1rdrdknod95rcp4bvdfighui5f6c0je0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ5Vn1a2TCIcsJbyEjpXvmXC910k26cm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002962534825-1rdrdknod95rcp4bvdfighui5f6c0je0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
