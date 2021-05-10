@@ -7,23 +7,18 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.kk.chatapp.MainActivity
 import com.kk.chatapp.MessageChatActivity
-import com.kk.chatapp.ModelClasses.Users
+import com.kk.chatapp.ModelClasses.User
 import com.kk.chatapp.R
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class UserAdapter(
     //Veri Olarak Aktif Kullanılacak olanlar
     private val mContext: Context,       //Context tanımladık adapter için
-    private val mUsers: List<Users>,     //gelecek veriler ModelClass içindeki Users de tanımlı
+    private val mUsers: List<User>,     //gelecek veriler ModelClass içindeki Users de tanımlı
     private var isChatCheck: Boolean,    //extra buna da ihtiyaç vardı tanımladık
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder?>()
 {
@@ -56,11 +51,11 @@ class UserAdapter(
     override fun onBindViewHolder(holder: ViewHolder, i: Int) {
         //BURADA BI SIKINTI VAR AMA NE?
 
-        val user: Users = mUsers[i]
-        holder.userNameTxt.text = user!!.getUserName()
-        println("${i} Name: ${user.getUserName()}")
-        println("user: "+ mUsers[i].getUserName())
-        //Picasso.get().load(user.getProfile()).placeholder(R.drawable.ic_profile).into(holder.profileImageView)
+        val user: User = mUsers[i]
+        holder.userNameTxt.text = user!!.username
+        println("${i} Name: ${user.username}")
+        println("user: "+ mUsers[i].username)
+        Picasso.get().load(user.profile).placeholder(R.drawable.ic_profile).into(holder.profileImageView)
 
         //kişiye tıklanılınca yapılacak işlemler
         holder.itemView.setOnClickListener {
@@ -71,7 +66,7 @@ class UserAdapter(
                 if (position==0)//1. secenek (send message) seçildiğinde
                 {
                     val intent = Intent(mContext, MessageChatActivity::class.java)
-                    intent.putExtra("visit_id",user.getUID())
+                    intent.putExtra("visit_id",user.uid)
                     mContext.startActivity(intent)
 
                 }

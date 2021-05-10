@@ -3,16 +3,10 @@ package com.kk.chatapp
 import ViewPagerAdapter
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TableLayout
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -21,7 +15,7 @@ import com.google.firebase.database.*
 import com.kk.chatapp.Fragments.ChatsFragment
 import com.kk.chatapp.Fragments.SearchFragment
 import com.kk.chatapp.Fragments.SettingsFragment
-import com.kk.chatapp.ModelClasses.Users
+import com.kk.chatapp.ModelClasses.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -61,9 +55,9 @@ class MainActivity : AppCompatActivity() {
         refUsers!!.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val user: Users? =snapshot.getValue(Users::class.java) //Users data class olusturduk, firebase den gelenleri duzenlemek icin
-                    user_name.text = user!!.getUserName()
-                    Picasso.get().load(user.getProfile()).placeholder(R.drawable.ic_profile).into(profile_image)
+                    val user: User? =snapshot.getValue(User::class.java) //Users data class olusturduk, firebase den gelenleri duzenlemek icin
+                    user_name.text = user!!.username
+                    Picasso.get().load(user.profile).placeholder(R.drawable.ic_profile).into(profile_image)
                 }
             }
 

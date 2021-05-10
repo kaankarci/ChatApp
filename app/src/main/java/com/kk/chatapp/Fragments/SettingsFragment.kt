@@ -13,18 +13,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import com.google.android.gms.auth.api.signin.internal.Storage
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
-import com.kk.chatapp.ModelClasses.Users
+import com.kk.chatapp.ModelClasses.User
 import com.kk.chatapp.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -55,12 +53,12 @@ class SettingsFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists())//snapshout da veri varsa true yoksa false dondurur
                 {
-                    val user: Users? = snapshot.getValue(Users::class.java) //giriş yapmış olan userın (getValue oldugu ıcın) key olmadan değerlerini alır Users'deki yerlerıne koyar
+                    val user: User? = snapshot.getValue(User::class.java) //giriş yapmış olan userın (getValue oldugu ıcın) key olmadan değerlerini alır Users'deki yerlerıne koyar
 
 
-                    view.username_settings.text = user!!.getUserName()
-                    Picasso.get().load(user.getProfile()).into(profile_image_settings)
-                    Picasso.get().load(user.getCover()).into(cover_image_settings)
+                    view.username_settings.text = user!!.username
+                    Picasso.get().load(user.profile).into(profile_image_settings)
+                    Picasso.get().load(user.cover).into(cover_image_settings)
                 }
             }
 

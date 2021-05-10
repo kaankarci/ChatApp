@@ -1,6 +1,5 @@
 package com.kk.chatapp
 
-import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
@@ -18,7 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
-import com.kk.chatapp.ModelClasses.Users
+import com.kk.chatapp.ModelClasses.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_message_chat.*
 
@@ -37,10 +36,10 @@ class MessageChatActivity : AppCompatActivity() {
         val reference = FirebaseDatabase.getInstance().reference.child("Users").child(userIdVisit!!)
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val user: Users? = snapshot.getValue(Users::class.java)
+                val user: User? = snapshot.getValue(User::class.java)
 
-                username_mchat.text = user!!.getUserName()
-             //   Picasso.get().load(user.getProfile()).into(profile_image_mchat)
+                username_mchat.text = user!!.username
+                Picasso.get().load(user.profile).into(profile_image_mchat)
             }
 
             override fun onCancelled(error: DatabaseError) {
