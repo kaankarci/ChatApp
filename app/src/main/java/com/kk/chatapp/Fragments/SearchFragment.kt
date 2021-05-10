@@ -71,13 +71,13 @@ class SearchFragment : Fragment() {
 
                 if (searchEditText!!.text.toString() == "")
                {
-                   var maps: Map<String,User?>? = p0.getValue<Map<String, User?>>()
+                   var maps: Map<String,User?>? = p0.getValue<Map<String, User?>>()      //maps'e "key=> String", "User=>value" değerleri olarak tanımladık
 
-                    for (snapshot in maps ?: hashMapOf())
+                    for (snapshot in maps ?: hashMapOf())       //maps null değilse anlamına geliyor
                     {
-                           var user: User? = snapshot.value
+                           var user: User? = snapshot.value     //user'i User modeli olarak gör, içine snapshot'dan gelen value değerlerini gir
 
-                       if (!(user!!.uid).equals(firebaseUserID))
+                       if (!(user!!.uid).equals(firebaseUserID))    //kendini göstermemesi için yani gelen uid, giriş yapılana eşit değilse
                         {
                             (mUsers as ArrayList<User>).add(user)
                         }
@@ -104,7 +104,8 @@ class SearchFragment : Fragment() {
                 if (maps != null) {
                     for (snapshot in maps) {
                         val user: User? = snapshot.value
-                        if (!(user!!.uid).equals(firebaseUserID)) {
+                        if (!(user!!.uid).equals(firebaseUserID)) //kendini göstermemesi için yani gelen uid, giriş yapılana eşit değilse
+                        {
                             (mUsers as ArrayList<User>).add(user)
 
                         }

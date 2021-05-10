@@ -49,7 +49,6 @@ class UserAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, i: Int) {
-        //BURADA BI SIKINTI VAR AMA NE?
 
         val user: User = mUsers[i]
         holder.userNameTxt.text = user!!.username
