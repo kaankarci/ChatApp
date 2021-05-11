@@ -52,8 +52,6 @@ class UserAdapter(
 
         val user: User = mUsers[i]
         holder.userNameTxt.text = user!!.username
-        println("${i} Name: ${user.username}")
-        println("user: "+ mUsers[i].username)
         Picasso.get().load(user.profile).placeholder(R.drawable.ic_profile).into(holder.profileImageView)
 
         //kişiye tıklanılınca yapılacak işlemler

@@ -12,9 +12,12 @@ import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.kk.chatapp.Fragments.ChatsFragment
 import com.kk.chatapp.Fragments.SearchFragment
 import com.kk.chatapp.Fragments.SettingsFragment
+import com.kk.chatapp.ModelClasses.Chat
+import com.kk.chatapp.ModelClasses.ChatList
 import com.kk.chatapp.ModelClasses.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,13 +40,40 @@ class MainActivity : AppCompatActivity() {
 
         val tabLayout: TabLayout =findViewById(R.id.tabLayout)             //Üst kısımda chat|search|settings kısmının olduğu yer
         val viewPager: ViewPager = findViewById(R.id.view_pager)            //İçerik kısmı
-        val viewPagerAdapter =ViewPagerAdapter(supportFragmentManager)      //İçerik kısmı için oluşturulan fragmentler için adapter
 
-        viewPagerAdapter.addFragment(ChatsFragment(),"Chats")         //"Chats" Başlığıyla, içerik kısmına ChatsFragment'te olan gelecek
-        viewPagerAdapter.addFragment(SearchFragment(), "Search")
-        viewPagerAdapter.addFragment(SettingsFragment(), "Settings")
-        tabLayout.setupWithViewPager(viewPager)                             //ViewPager'e başlıkla gelen tabLayout'a eklenecek
-        viewPager.adapter = viewPagerAdapter
+        val ref =FirebaseDatabase.getInstance().reference.child("Chats")
+        ref!!.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot)
+            {
+                val viewPagerAdapter =ViewPagerAdapter(supportFragmentManager)   //İçerik kısmı için oluşturulan fragmentler için adapter
+                var countUnreadMessages=0
+
+                for (dataSnapshot in p0.children )
+                {
+                    val chat=dataSnapshot.getValue(Chat::class.java)
+                    if (chat!!.reciever.equals(firebaseUser!!.uid) && !chat.isseen)
+                    {
+                        countUnreadMessages +=  1
+                    }
+
+                }
+                if (countUnreadMessages==0)
+                {
+                    viewPagerAdapter.addFragment(ChatsFragment(),"Chats")
+                }
+                else
+                {
+                    viewPagerAdapter.addFragment(ChatsFragment(),"${countUnreadMessages} Chats")    //"Chats" Başlığıyla, içerik kısmına ChatsFragment'te olan gelecek
+                }
+
+                viewPagerAdapter.addFragment(SearchFragment(), "Search")
+                viewPagerAdapter.addFragment(SettingsFragment(), "Settings")
+                viewPager.adapter = viewPagerAdapter
+                tabLayout.setupWithViewPager(viewPager)     //ViewPager'e başlıkla gelen tabLayout'a eklenecek
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
         //Toolbar End
 
 
