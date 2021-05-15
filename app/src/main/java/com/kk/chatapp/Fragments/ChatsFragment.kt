@@ -14,9 +14,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.kk.chatapp.Adapters.UserAdapter
 import com.kk.chatapp.ModelClasses.ChatList
 import com.kk.chatapp.ModelClasses.User
+import com.kk.chatapp.Notifications.Token
 import com.kk.chatapp.R
 
 
@@ -63,7 +65,15 @@ class ChatsFragment : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
         })
 
+        updateToken(FirebaseInstanceId.getInstance().token)
         return view
+    }
+
+    private fun updateToken(token: String?) {
+
+        val ref = FirebaseDatabase.getInstance().reference.child("Tokens")
+        val token1 = Token(token!!)
+        ref.child(firebaseUser!!.uid).setValue(token1)
     }
 
     private fun retrieveChatList()
