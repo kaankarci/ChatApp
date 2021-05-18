@@ -95,7 +95,7 @@ class ChatsAdapter(
             }
             //image message - left side
             else if (!chat.sender.equals(firebaseUser!!.uid)) {
-                holder.show_text_message!!.visibility = View.GONE
+                holder.show_text_message!!.visibility = View.VISIBLE
                 holder.left_image_view!!.visibility = View.VISIBLE
                 Picasso.get().load(chat.url).into(holder.left_image_view)
     //Resmi buyutme
@@ -144,6 +144,7 @@ class ChatsAdapter(
         //sent and seen message
         if (position == mChatList.size - 1) {
             if (chat.isseen) {
+                holder.text_seen!!.visibility = View.VISIBLE
                 holder.text_seen!!.text = "Seen"
                 if (chat.message.equals("send you an image.") && chat.url.equals("")) {
                     val lp: RelativeLayout.LayoutParams? =
@@ -152,6 +153,7 @@ class ChatsAdapter(
                     holder.text_seen!!.layoutParams = lp
                 }
             } else {
+                holder.text_seen!!.visibility = View.VISIBLE
                 holder.text_seen!!.text = "Sent"
                 if (chat.message.equals("send you an image.") && chat.url.equals("")) {
                     val lp: RelativeLayout.LayoutParams? =
@@ -161,7 +163,9 @@ class ChatsAdapter(
                 }
             }
         } else {
+
             holder.text_seen!!.visibility = View.GONE
+
         }
     }
 

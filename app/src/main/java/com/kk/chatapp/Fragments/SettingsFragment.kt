@@ -133,7 +133,7 @@ class SettingsFragment : Fragment() {
             }
             "instagram"->
             {
-                mapSocial["instagram"]="https://m.facebook.com/${str}"
+                mapSocial["instagram"]="https://m.instagram.com/${str}"
             }
             "website"->
             {

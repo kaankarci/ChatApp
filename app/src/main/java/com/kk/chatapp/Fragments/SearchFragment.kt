@@ -16,13 +16,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
-import com.kk.chatapp.Adapters.UserAdapter
+import com.kk.chatapp.Adapters.SearchUserAdapter
 import com.kk.chatapp.ModelClasses.User
 import com.kk.chatapp.R
 
 
 class SearchFragment : Fragment() {
-    private var userAdapter: UserAdapter? = null
+    private var userAdapter: SearchUserAdapter? = null
     private var mUsers: List<User>? = null
     private var recyclerView: RecyclerView? = null
     private var searchEditText: EditText? = null
@@ -82,7 +82,7 @@ class SearchFragment : Fragment() {
                             (mUsers as ArrayList<User>).add(user)
                         }
                     }
-                   userAdapter = UserAdapter(context!!, mUsers!!, false)
+                   userAdapter = SearchUserAdapter(context!!, mUsers!!, false)
                    recyclerView!!.adapter = userAdapter
                 }
             }
@@ -112,7 +112,7 @@ class SearchFragment : Fragment() {
                     }
                 }
 
-                userAdapter = UserAdapter(context!!, mUsers!!, false)
+                userAdapter = SearchUserAdapter(context!!, mUsers!!, false)
                 recyclerView!!.adapter = userAdapter
             }
 
